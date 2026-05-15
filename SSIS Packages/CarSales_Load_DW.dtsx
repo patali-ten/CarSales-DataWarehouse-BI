@@ -1,0 +1,2859 @@
+﻿<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="3/25/2026 11:47:29 AM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="DESKTOP-6JQS3AB"
+  DTS:CreatorName="DESKTOP-6JQS3AB\HP"
+  DTS:DTSID="{765A4841-592F-4F19-B079-C5489F3C39C9}"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="17.0.1010.2"
+  DTS:LocaleID="1033"
+  DTS:ObjectName="Package1"
+  DTS:PackageType="5"
+  DTS:VersionBuild="22"
+  DTS:VersionGUID="{CC96C6EA-817A-4FB1-B97E-6DB105E86605}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:ConnectionManagers>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[localhost\SQLEXPRESS.CarSales_DW]"
+      DTS:CreationName="OLEDB"
+      DTS:DTSID="{28B6AA17-A4CA-4BA1-9F9E-75E1CF77EAA0}"
+      DTS:ObjectName="localhost\SQLEXPRESS.CarSales_DW">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectRetryCount="1"
+          DTS:ConnectRetryInterval="5"
+          DTS:ConnectionString="Data Source=localhost\SQLEXPRESS;Initial Catalog=CarSales_DW;Provider=SQLOLEDB.1;Integrated Security=SSPI;Application Name=SSIS-Package1-{28B6AA17-A4CA-4BA1-9F9E-75E1CF77EAA0}localhost\SQLEXPRESS.CarSales_DW;Auto Translate=False;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[localhost\SQLEXPRESS.CarSales_Staging]"
+      DTS:CreationName="OLEDB"
+      DTS:DTSID="{01B61263-36E7-4933-92AA-4ACFF709F415}"
+      DTS:ObjectName="localhost\SQLEXPRESS.CarSales_Staging">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectRetryCount="1"
+          DTS:ConnectRetryInterval="5"
+          DTS:ConnectionString="Data Source=localhost\SQLEXPRESS;Initial Catalog=CarSales_Staging;Provider=SQLOLEDB.1;Integrated Security=SSPI;Application Name=SSIS-Package1-{01B61263-36E7-4933-92AA-4ACFF709F415}localhost\SQLEXPRESS.CarSales_Staging;Auto Translate=False;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+  </DTS:ConnectionManagers>
+  <DTS:Variables />
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\Transform and Load DimCar"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:Description="Data Flow Task"
+      DTS:DTSID="{D90A91ED-1FA7-447D-9898-94CD80C12F5C}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Transform and Load DimCar"
+      DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <pipeline
+          version="1">
+          <components>
+            <component
+              refId="Package\Transform and Load DimCar\Load DimCar"
+              componentClassID="Microsoft.OLEDBCommand"
+              contactInfo="OLE DB Command;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;2"
+              description="Runs an SQL statement for each row in a data flow. For example, call a 'new employee setup' stored procedure for each row in the 'new employees' table. Note: running an SQL statement for each row of a large data flow may take a long time."
+              name="Load DimCar"
+              usesDispositions="true"
+              version="2">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  expressionType="Notify"
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">exec dbo.UpdateDimCar ?, ?, ?, ?, ?</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Transform and Load DimCar\Load DimCar.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[localhost\SQLEXPRESS.CarSales_DW]"
+                  connectionManagerRefId="Package.ConnectionManagers[localhost\SQLEXPRESS.CarSales_DW]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Transform and Load DimCar\Load DimCar.Inputs[OLE DB Command Input]"
+                  errorOrTruncationOperation="Command Execution"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="OLE DB Command Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Transform and Load DimCar\Load DimCar.Inputs[OLE DB Command Input].Columns[CarID]"
+                      cachedDataType="i4"
+                      cachedName="CarID"
+                      externalMetadataColumnId="Package\Transform and Load DimCar\Load DimCar.Inputs[OLE DB Command Input].ExternalColumns[@CarID]"
+                      lineageId="Package\Transform and Load DimCar\OLE DB Source.Outputs[OLE DB Source Output].Columns[CarID]" />
+                    <inputColumn
+                      refId="Package\Transform and Load DimCar\Load DimCar.Inputs[OLE DB Command Input].Columns[CarMake]"
+                      cachedDataType="wstr"
+                      cachedLength="50"
+                      cachedName="CarMake"
+                      externalMetadataColumnId="Package\Transform and Load DimCar\Load DimCar.Inputs[OLE DB Command Input].ExternalColumns[@CarMake]"
+                      lineageId="Package\Transform and Load DimCar\OLE DB Source.Outputs[OLE DB Source Output].Columns[CarMake]" />
+                    <inputColumn
+                      refId="Package\Transform and Load DimCar\Load DimCar.Inputs[OLE DB Command Input].Columns[CarModel]"
+                      cachedDataType="wstr"
+                      cachedLength="50"
+                      cachedName="CarModel"
+                      externalMetadataColumnId="Package\Transform and Load DimCar\Load DimCar.Inputs[OLE DB Command Input].ExternalColumns[@CarModel]"
+                      lineageId="Package\Transform and Load DimCar\OLE DB Source.Outputs[OLE DB Source Output].Columns[CarModel]" />
+                    <inputColumn
+                      refId="Package\Transform and Load DimCar\Load DimCar.Inputs[OLE DB Command Input].Columns[CarYear]"
+                      cachedDataType="i4"
+                      cachedName="CarYear"
+                      externalMetadataColumnId="Package\Transform and Load DimCar\Load DimCar.Inputs[OLE DB Command Input].ExternalColumns[@CarYear]"
+                      lineageId="Package\Transform and Load DimCar\OLE DB Source.Outputs[OLE DB Source Output].Columns[CarYear]" />
+                    <inputColumn
+                      refId="Package\Transform and Load DimCar\Load DimCar.Inputs[OLE DB Command Input].Columns[Category]"
+                      cachedDataType="wstr"
+                      cachedLength="50"
+                      cachedName="Category"
+                      externalMetadataColumnId="Package\Transform and Load DimCar\Load DimCar.Inputs[OLE DB Command Input].ExternalColumns[@Category]"
+                      lineageId="Package\Transform and Load DimCar\OLE DB Source.Outputs[OLE DB Source Output].Columns[Category]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Transform and Load DimCar\Load DimCar.Inputs[OLE DB Command Input].ExternalColumns[@CarID]"
+                      dataType="i4"
+                      name="@CarID">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Parameter information.  Matches OLE DB's DBPARAMFLAGSENUM values."
+                          name="DBParamInfoFlags">81</property>
+                      </properties>
+                    </externalMetadataColumn>
+                    <externalMetadataColumn
+                      refId="Package\Transform and Load DimCar\Load DimCar.Inputs[OLE DB Command Input].ExternalColumns[@CarMake]"
+                      dataType="wstr"
+                      length="50"
+                      name="@CarMake">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Parameter information.  Matches OLE DB's DBPARAMFLAGSENUM values."
+                          name="DBParamInfoFlags">65</property>
+                      </properties>
+                    </externalMetadataColumn>
+                    <externalMetadataColumn
+                      refId="Package\Transform and Load DimCar\Load DimCar.Inputs[OLE DB Command Input].ExternalColumns[@CarModel]"
+                      dataType="wstr"
+                      length="50"
+                      name="@CarModel">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Parameter information.  Matches OLE DB's DBPARAMFLAGSENUM values."
+                          name="DBParamInfoFlags">65</property>
+                      </properties>
+                    </externalMetadataColumn>
+                    <externalMetadataColumn
+                      refId="Package\Transform and Load DimCar\Load DimCar.Inputs[OLE DB Command Input].ExternalColumns[@CarYear]"
+                      dataType="i4"
+                      name="@CarYear">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Parameter information.  Matches OLE DB's DBPARAMFLAGSENUM values."
+                          name="DBParamInfoFlags">81</property>
+                      </properties>
+                    </externalMetadataColumn>
+                    <externalMetadataColumn
+                      refId="Package\Transform and Load DimCar\Load DimCar.Inputs[OLE DB Command Input].ExternalColumns[@Category]"
+                      dataType="wstr"
+                      length="50"
+                      name="@Category">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Parameter information.  Matches OLE DB's DBPARAMFLAGSENUM values."
+                          name="DBParamInfoFlags">65</property>
+                      </properties>
+                    </externalMetadataColumn>
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Transform and Load DimCar\Load DimCar.Outputs[OLE DB Command Output]"
+                  exclusionGroup="1"
+                  name="OLE DB Command Output"
+                  synchronousInputId="Package\Transform and Load DimCar\Load DimCar.Inputs[OLE DB Command Input]">
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Transform and Load DimCar\Load DimCar.Outputs[OLE DB Command Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="OLE DB Command Error Output"
+                  synchronousInputId="Package\Transform and Load DimCar\Load DimCar.Inputs[OLE DB Command Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Transform and Load DimCar\Load DimCar.Outputs[OLE DB Command Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Transform and Load DimCar\Load DimCar.Outputs[OLE DB Command Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Transform and Load DimCar\Load DimCar.Outputs[OLE DB Command Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Transform and Load DimCar\Load DimCar.Outputs[OLE DB Command Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Transform and Load DimCar\OLE DB Source"
+              componentClassID="Microsoft.OLEDBSource"
+              contactInfo="OLE DB Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;7"
+              description="OLE DB Source"
+              name="OLE DB Source"
+              usesDispositions="true"
+              version="7">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[dbo].[StgCar]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property
+                  dataType="System.String"
+                  description="The variable that contains the SQL command to be executed."
+                  name="SqlCommandVariable"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">0</property>
+                <property
+                  dataType="System.String"
+                  description="The mappings between the parameters in the SQL command and variables."
+                  name="ParameterMapping"></property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Transform and Load DimCar\OLE DB Source.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[localhost\SQLEXPRESS.CarSales_Staging]"
+                  connectionManagerRefId="Package.ConnectionManagers[localhost\SQLEXPRESS.CarSales_Staging]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\Transform and Load DimCar\OLE DB Source.Outputs[OLE DB Source Output]"
+                  name="OLE DB Source Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Transform and Load DimCar\OLE DB Source.Outputs[OLE DB Source Output].Columns[CarID]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Transform and Load DimCar\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[CarID]"
+                      lineageId="Package\Transform and Load DimCar\OLE DB Source.Outputs[OLE DB Source Output].Columns[CarID]"
+                      name="CarID"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Transform and Load DimCar\OLE DB Source.Outputs[OLE DB Source Output].Columns[CarMake]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Transform and Load DimCar\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[CarMake]"
+                      length="50"
+                      lineageId="Package\Transform and Load DimCar\OLE DB Source.Outputs[OLE DB Source Output].Columns[CarMake]"
+                      name="CarMake"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Transform and Load DimCar\OLE DB Source.Outputs[OLE DB Source Output].Columns[CarModel]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Transform and Load DimCar\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[CarModel]"
+                      length="50"
+                      lineageId="Package\Transform and Load DimCar\OLE DB Source.Outputs[OLE DB Source Output].Columns[CarModel]"
+                      name="CarModel"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Transform and Load DimCar\OLE DB Source.Outputs[OLE DB Source Output].Columns[CarYear]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Transform and Load DimCar\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[CarYear]"
+                      lineageId="Package\Transform and Load DimCar\OLE DB Source.Outputs[OLE DB Source Output].Columns[CarYear]"
+                      name="CarYear"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Transform and Load DimCar\OLE DB Source.Outputs[OLE DB Source Output].Columns[Category]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Transform and Load DimCar\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[Category]"
+                      length="50"
+                      lineageId="Package\Transform and Load DimCar\OLE DB Source.Outputs[OLE DB Source Output].Columns[Category]"
+                      name="Category"
+                      truncationRowDisposition="FailComponent" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Transform and Load DimCar\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[CarID]"
+                      dataType="i4"
+                      name="CarID" />
+                    <externalMetadataColumn
+                      refId="Package\Transform and Load DimCar\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[CarMake]"
+                      dataType="wstr"
+                      length="50"
+                      name="CarMake" />
+                    <externalMetadataColumn
+                      refId="Package\Transform and Load DimCar\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[CarModel]"
+                      dataType="wstr"
+                      length="50"
+                      name="CarModel" />
+                    <externalMetadataColumn
+                      refId="Package\Transform and Load DimCar\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[CarYear]"
+                      dataType="i4"
+                      name="CarYear" />
+                    <externalMetadataColumn
+                      refId="Package\Transform and Load DimCar\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[Category]"
+                      dataType="wstr"
+                      length="50"
+                      name="Category" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\Transform and Load DimCar\OLE DB Source.Outputs[OLE DB Source Error Output]"
+                  isErrorOut="true"
+                  name="OLE DB Source Error Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Transform and Load DimCar\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[CarID]"
+                      dataType="i4"
+                      lineageId="Package\Transform and Load DimCar\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[CarID]"
+                      name="CarID" />
+                    <outputColumn
+                      refId="Package\Transform and Load DimCar\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[CarMake]"
+                      dataType="wstr"
+                      length="50"
+                      lineageId="Package\Transform and Load DimCar\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[CarMake]"
+                      name="CarMake" />
+                    <outputColumn
+                      refId="Package\Transform and Load DimCar\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[CarModel]"
+                      dataType="wstr"
+                      length="50"
+                      lineageId="Package\Transform and Load DimCar\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[CarModel]"
+                      name="CarModel" />
+                    <outputColumn
+                      refId="Package\Transform and Load DimCar\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[CarYear]"
+                      dataType="i4"
+                      lineageId="Package\Transform and Load DimCar\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[CarYear]"
+                      name="CarYear" />
+                    <outputColumn
+                      refId="Package\Transform and Load DimCar\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[Category]"
+                      dataType="wstr"
+                      length="50"
+                      lineageId="Package\Transform and Load DimCar\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[Category]"
+                      name="Category" />
+                    <outputColumn
+                      refId="Package\Transform and Load DimCar\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Transform and Load DimCar\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Transform and Load DimCar\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Transform and Load DimCar\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+          </components>
+          <paths>
+            <path
+              refId="Package\Transform and Load DimCar.Paths[OLE DB Source Output]"
+              endId="Package\Transform and Load DimCar\Load DimCar.Inputs[OLE DB Command Input]"
+              name="OLE DB Source Output"
+              startId="Package\Transform and Load DimCar\OLE DB Source.Outputs[OLE DB Source Output]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Transform and Load DimCustomer"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:Description="Data Flow Task"
+      DTS:DTSID="{AECC7FB9-8775-43E9-80A2-97B01C32E7D8}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Transform and Load DimCustomer"
+      DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <pipeline
+          version="1">
+          <components>
+            <component
+              refId="Package\Transform and Load DimCustomer\Load DimCustomer"
+              componentClassID="Microsoft.OLEDBCommand"
+              contactInfo="OLE DB Command;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;2"
+              description="Runs an SQL statement for each row in a data flow. For example, call a 'new employee setup' stored procedure for each row in the 'new employees' table. Note: running an SQL statement for each row of a large data flow may take a long time."
+              name="Load DimCustomer"
+              usesDispositions="true"
+              version="2">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  expressionType="Notify"
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">exec dbo.UpdateDimCustomer ?</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Transform and Load DimCustomer\Load DimCustomer.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[localhost\SQLEXPRESS.CarSales_DW]"
+                  connectionManagerRefId="Package.ConnectionManagers[localhost\SQLEXPRESS.CarSales_DW]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Transform and Load DimCustomer\Load DimCustomer.Inputs[OLE DB Command Input]"
+                  errorOrTruncationOperation="Command Execution"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="OLE DB Command Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Transform and Load DimCustomer\Load DimCustomer.Inputs[OLE DB Command Input].Columns[CustomerName]"
+                      cachedDataType="wstr"
+                      cachedLength="100"
+                      cachedName="CustomerName"
+                      externalMetadataColumnId="Package\Transform and Load DimCustomer\Load DimCustomer.Inputs[OLE DB Command Input].ExternalColumns[@CustomerName]"
+                      lineageId="Package\Transform and Load DimCustomer\OLE DB Source.Outputs[OLE DB Source Output].Columns[CustomerName]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Transform and Load DimCustomer\Load DimCustomer.Inputs[OLE DB Command Input].ExternalColumns[@CustomerName]"
+                      dataType="wstr"
+                      length="100"
+                      name="@CustomerName">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Parameter information.  Matches OLE DB's DBPARAMFLAGSENUM values."
+                          name="DBParamInfoFlags">65</property>
+                      </properties>
+                    </externalMetadataColumn>
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Transform and Load DimCustomer\Load DimCustomer.Outputs[OLE DB Command Output]"
+                  exclusionGroup="1"
+                  name="OLE DB Command Output"
+                  synchronousInputId="Package\Transform and Load DimCustomer\Load DimCustomer.Inputs[OLE DB Command Input]">
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Transform and Load DimCustomer\Load DimCustomer.Outputs[OLE DB Command Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="OLE DB Command Error Output"
+                  synchronousInputId="Package\Transform and Load DimCustomer\Load DimCustomer.Inputs[OLE DB Command Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Transform and Load DimCustomer\Load DimCustomer.Outputs[OLE DB Command Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Transform and Load DimCustomer\Load DimCustomer.Outputs[OLE DB Command Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Transform and Load DimCustomer\Load DimCustomer.Outputs[OLE DB Command Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Transform and Load DimCustomer\Load DimCustomer.Outputs[OLE DB Command Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Transform and Load DimCustomer\OLE DB Source"
+              componentClassID="Microsoft.OLEDBSource"
+              contactInfo="OLE DB Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;7"
+              description="OLE DB Source"
+              name="OLE DB Source"
+              usesDispositions="true"
+              version="7">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset"></property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">SELECT DISTINCT CustomerName FROM StgSales</property>
+                <property
+                  dataType="System.String"
+                  description="The variable that contains the SQL command to be executed."
+                  name="SqlCommandVariable"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">2</property>
+                <property
+                  dataType="System.String"
+                  description="The mappings between the parameters in the SQL command and variables."
+                  name="ParameterMapping"></property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Transform and Load DimCustomer\OLE DB Source.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[localhost\SQLEXPRESS.CarSales_Staging]"
+                  connectionManagerRefId="Package.ConnectionManagers[localhost\SQLEXPRESS.CarSales_Staging]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\Transform and Load DimCustomer\OLE DB Source.Outputs[OLE DB Source Output]"
+                  name="OLE DB Source Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Transform and Load DimCustomer\OLE DB Source.Outputs[OLE DB Source Output].Columns[CustomerName]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Transform and Load DimCustomer\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[CustomerName]"
+                      length="100"
+                      lineageId="Package\Transform and Load DimCustomer\OLE DB Source.Outputs[OLE DB Source Output].Columns[CustomerName]"
+                      name="CustomerName"
+                      truncationRowDisposition="FailComponent" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Transform and Load DimCustomer\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[CustomerName]"
+                      dataType="wstr"
+                      length="100"
+                      name="CustomerName" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\Transform and Load DimCustomer\OLE DB Source.Outputs[OLE DB Source Error Output]"
+                  isErrorOut="true"
+                  name="OLE DB Source Error Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Transform and Load DimCustomer\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[CustomerName]"
+                      dataType="wstr"
+                      length="100"
+                      lineageId="Package\Transform and Load DimCustomer\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[CustomerName]"
+                      name="CustomerName" />
+                    <outputColumn
+                      refId="Package\Transform and Load DimCustomer\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Transform and Load DimCustomer\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Transform and Load DimCustomer\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Transform and Load DimCustomer\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+          </components>
+          <paths>
+            <path
+              refId="Package\Transform and Load DimCustomer.Paths[OLE DB Source Output]"
+              endId="Package\Transform and Load DimCustomer\Load DimCustomer.Inputs[OLE DB Command Input]"
+              name="OLE DB Source Output"
+              startId="Package\Transform and Load DimCustomer\OLE DB Source.Outputs[OLE DB Source Output]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Transform and Load DimSalesperson"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:Description="Data Flow Task"
+      DTS:DTSID="{A643E432-8D31-4FFD-B91B-79C6B0C1FD29}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Transform and Load DimSalesperson"
+      DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <pipeline
+          version="1">
+          <components>
+            <component
+              refId="Package\Transform and Load DimSalesperson\Load DimSalesperson"
+              componentClassID="Microsoft.OLEDBCommand"
+              contactInfo="OLE DB Command;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;2"
+              description="Runs an SQL statement for each row in a data flow. For example, call a 'new employee setup' stored procedure for each row in the 'new employees' table. Note: running an SQL statement for each row of a large data flow may take a long time."
+              name="Load DimSalesperson"
+              usesDispositions="true"
+              version="2">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  expressionType="Notify"
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">exec dbo.UpdateDimSalesperson ?, ?, ?, ?</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Transform and Load DimSalesperson\Load DimSalesperson.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[localhost\SQLEXPRESS.CarSales_DW]"
+                  connectionManagerRefId="Package.ConnectionManagers[localhost\SQLEXPRESS.CarSales_DW]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Transform and Load DimSalesperson\Load DimSalesperson.Inputs[OLE DB Command Input]"
+                  errorOrTruncationOperation="Command Execution"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="OLE DB Command Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Transform and Load DimSalesperson\Load DimSalesperson.Inputs[OLE DB Command Input].Columns[SalespersonID]"
+                      cachedDataType="i4"
+                      cachedName="SalespersonID"
+                      externalMetadataColumnId="Package\Transform and Load DimSalesperson\Load DimSalesperson.Inputs[OLE DB Command Input].ExternalColumns[@SalespersonID]"
+                      lineageId="Package\Transform and Load DimSalesperson\OLE DB Source.Outputs[OLE DB Source Output].Columns[SalespersonID]" />
+                    <inputColumn
+                      refId="Package\Transform and Load DimSalesperson\Load DimSalesperson.Inputs[OLE DB Command Input].Columns[SalespersonName]"
+                      cachedDataType="wstr"
+                      cachedLength="100"
+                      cachedName="SalespersonName"
+                      externalMetadataColumnId="Package\Transform and Load DimSalesperson\Load DimSalesperson.Inputs[OLE DB Command Input].ExternalColumns[@SalespersonName]"
+                      lineageId="Package\Transform and Load DimSalesperson\OLE DB Source.Outputs[OLE DB Source Output].Columns[SalespersonName]" />
+                    <inputColumn
+                      refId="Package\Transform and Load DimSalesperson\Load DimSalesperson.Inputs[OLE DB Command Input].Columns[Region]"
+                      cachedDataType="wstr"
+                      cachedLength="50"
+                      cachedName="Region"
+                      externalMetadataColumnId="Package\Transform and Load DimSalesperson\Load DimSalesperson.Inputs[OLE DB Command Input].ExternalColumns[@Region]"
+                      lineageId="Package\Transform and Load DimSalesperson\OLE DB Source.Outputs[OLE DB Source Output].Columns[Region]" />
+                    <inputColumn
+                      refId="Package\Transform and Load DimSalesperson\Load DimSalesperson.Inputs[OLE DB Command Input].Columns[Experience]"
+                      cachedDataType="wstr"
+                      cachedLength="50"
+                      cachedName="Experience"
+                      externalMetadataColumnId="Package\Transform and Load DimSalesperson\Load DimSalesperson.Inputs[OLE DB Command Input].ExternalColumns[@Experience]"
+                      lineageId="Package\Transform and Load DimSalesperson\OLE DB Source.Outputs[OLE DB Source Output].Columns[Experience]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Transform and Load DimSalesperson\Load DimSalesperson.Inputs[OLE DB Command Input].ExternalColumns[@SalespersonID]"
+                      dataType="i4"
+                      name="@SalespersonID">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Parameter information.  Matches OLE DB's DBPARAMFLAGSENUM values."
+                          name="DBParamInfoFlags">81</property>
+                      </properties>
+                    </externalMetadataColumn>
+                    <externalMetadataColumn
+                      refId="Package\Transform and Load DimSalesperson\Load DimSalesperson.Inputs[OLE DB Command Input].ExternalColumns[@SalespersonName]"
+                      dataType="wstr"
+                      length="100"
+                      name="@SalespersonName">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Parameter information.  Matches OLE DB's DBPARAMFLAGSENUM values."
+                          name="DBParamInfoFlags">65</property>
+                      </properties>
+                    </externalMetadataColumn>
+                    <externalMetadataColumn
+                      refId="Package\Transform and Load DimSalesperson\Load DimSalesperson.Inputs[OLE DB Command Input].ExternalColumns[@Region]"
+                      dataType="wstr"
+                      length="50"
+                      name="@Region">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Parameter information.  Matches OLE DB's DBPARAMFLAGSENUM values."
+                          name="DBParamInfoFlags">65</property>
+                      </properties>
+                    </externalMetadataColumn>
+                    <externalMetadataColumn
+                      refId="Package\Transform and Load DimSalesperson\Load DimSalesperson.Inputs[OLE DB Command Input].ExternalColumns[@Experience]"
+                      dataType="wstr"
+                      length="50"
+                      name="@Experience">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Parameter information.  Matches OLE DB's DBPARAMFLAGSENUM values."
+                          name="DBParamInfoFlags">65</property>
+                      </properties>
+                    </externalMetadataColumn>
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Transform and Load DimSalesperson\Load DimSalesperson.Outputs[OLE DB Command Output]"
+                  exclusionGroup="1"
+                  name="OLE DB Command Output"
+                  synchronousInputId="Package\Transform and Load DimSalesperson\Load DimSalesperson.Inputs[OLE DB Command Input]">
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Transform and Load DimSalesperson\Load DimSalesperson.Outputs[OLE DB Command Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="OLE DB Command Error Output"
+                  synchronousInputId="Package\Transform and Load DimSalesperson\Load DimSalesperson.Inputs[OLE DB Command Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Transform and Load DimSalesperson\Load DimSalesperson.Outputs[OLE DB Command Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Transform and Load DimSalesperson\Load DimSalesperson.Outputs[OLE DB Command Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Transform and Load DimSalesperson\Load DimSalesperson.Outputs[OLE DB Command Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Transform and Load DimSalesperson\Load DimSalesperson.Outputs[OLE DB Command Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Transform and Load DimSalesperson\OLE DB Source"
+              componentClassID="Microsoft.OLEDBSource"
+              contactInfo="OLE DB Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;7"
+              description="OLE DB Source"
+              name="OLE DB Source"
+              usesDispositions="true"
+              version="7">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[dbo].[StgSalesperson]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property
+                  dataType="System.String"
+                  description="The variable that contains the SQL command to be executed."
+                  name="SqlCommandVariable"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">0</property>
+                <property
+                  dataType="System.String"
+                  description="The mappings between the parameters in the SQL command and variables."
+                  name="ParameterMapping"></property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Transform and Load DimSalesperson\OLE DB Source.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[localhost\SQLEXPRESS.CarSales_Staging]"
+                  connectionManagerRefId="Package.ConnectionManagers[localhost\SQLEXPRESS.CarSales_Staging]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\Transform and Load DimSalesperson\OLE DB Source.Outputs[OLE DB Source Output]"
+                  name="OLE DB Source Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Transform and Load DimSalesperson\OLE DB Source.Outputs[OLE DB Source Output].Columns[SalespersonID]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Transform and Load DimSalesperson\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[SalespersonID]"
+                      lineageId="Package\Transform and Load DimSalesperson\OLE DB Source.Outputs[OLE DB Source Output].Columns[SalespersonID]"
+                      name="SalespersonID"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Transform and Load DimSalesperson\OLE DB Source.Outputs[OLE DB Source Output].Columns[SalespersonName]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Transform and Load DimSalesperson\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[SalespersonName]"
+                      length="100"
+                      lineageId="Package\Transform and Load DimSalesperson\OLE DB Source.Outputs[OLE DB Source Output].Columns[SalespersonName]"
+                      name="SalespersonName"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Transform and Load DimSalesperson\OLE DB Source.Outputs[OLE DB Source Output].Columns[Region]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Transform and Load DimSalesperson\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[Region]"
+                      length="50"
+                      lineageId="Package\Transform and Load DimSalesperson\OLE DB Source.Outputs[OLE DB Source Output].Columns[Region]"
+                      name="Region"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Transform and Load DimSalesperson\OLE DB Source.Outputs[OLE DB Source Output].Columns[Experience]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Transform and Load DimSalesperson\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[Experience]"
+                      length="50"
+                      lineageId="Package\Transform and Load DimSalesperson\OLE DB Source.Outputs[OLE DB Source Output].Columns[Experience]"
+                      name="Experience"
+                      truncationRowDisposition="FailComponent" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Transform and Load DimSalesperson\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[SalespersonID]"
+                      dataType="i4"
+                      name="SalespersonID" />
+                    <externalMetadataColumn
+                      refId="Package\Transform and Load DimSalesperson\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[SalespersonName]"
+                      dataType="wstr"
+                      length="100"
+                      name="SalespersonName" />
+                    <externalMetadataColumn
+                      refId="Package\Transform and Load DimSalesperson\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[Region]"
+                      dataType="wstr"
+                      length="50"
+                      name="Region" />
+                    <externalMetadataColumn
+                      refId="Package\Transform and Load DimSalesperson\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[Experience]"
+                      dataType="wstr"
+                      length="50"
+                      name="Experience" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\Transform and Load DimSalesperson\OLE DB Source.Outputs[OLE DB Source Error Output]"
+                  isErrorOut="true"
+                  name="OLE DB Source Error Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Transform and Load DimSalesperson\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[SalespersonID]"
+                      dataType="i4"
+                      lineageId="Package\Transform and Load DimSalesperson\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[SalespersonID]"
+                      name="SalespersonID" />
+                    <outputColumn
+                      refId="Package\Transform and Load DimSalesperson\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[SalespersonName]"
+                      dataType="wstr"
+                      length="100"
+                      lineageId="Package\Transform and Load DimSalesperson\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[SalespersonName]"
+                      name="SalespersonName" />
+                    <outputColumn
+                      refId="Package\Transform and Load DimSalesperson\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[Region]"
+                      dataType="wstr"
+                      length="50"
+                      lineageId="Package\Transform and Load DimSalesperson\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[Region]"
+                      name="Region" />
+                    <outputColumn
+                      refId="Package\Transform and Load DimSalesperson\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[Experience]"
+                      dataType="wstr"
+                      length="50"
+                      lineageId="Package\Transform and Load DimSalesperson\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[Experience]"
+                      name="Experience" />
+                    <outputColumn
+                      refId="Package\Transform and Load DimSalesperson\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Transform and Load DimSalesperson\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Transform and Load DimSalesperson\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Transform and Load DimSalesperson\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+          </components>
+          <paths>
+            <path
+              refId="Package\Transform and Load DimSalesperson.Paths[OLE DB Source Output]"
+              endId="Package\Transform and Load DimSalesperson\Load DimSalesperson.Inputs[OLE DB Command Input]"
+              name="OLE DB Source Output"
+              startId="Package\Transform and Load DimSalesperson\OLE DB Source.Outputs[OLE DB Source Output]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Transform and Load FacSales"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:Description="Data Flow Task"
+      DTS:DTSID="{96A37173-BB2D-43F4-991B-B4EFDFDD0018}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Transform and Load FacSales"
+      DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <pipeline
+          version="1">
+          <components>
+            <component
+              refId="Package\Transform and Load FacSales\Car Lookup"
+              componentClassID="Microsoft.Lookup"
+              contactInfo="Lookup;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;6"
+              description="Joins additional columns to the data flow by looking up values in a table. For example, join to the 'employee id' column the employees table to get 'hire date' and 'employee name'. We recommend this transformation when the lookup table can fit into memory."
+              name="Car Lookup"
+              usesDispositions="true"
+              version="6">
+              <properties>
+                <property
+                  dataType="System.String"
+                  description="Specifies the SQL statement that generates the lookup table."
+                  expressionType="Notify"
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">select * from [dbo].[DimCar]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies a SQL statement that uses parameters to generate the lookup table."
+                  expressionType="Notify"
+                  name="SqlCommandParam"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">select * from (select * from [dbo].[DimCar]) [refTable]
+where [refTable].[CarID] = ?</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the type of connection used to access the reference dataset."
+                  name="ConnectionType"
+                  typeConverter="LookupConnectionType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the cache type of the lookup table."
+                  name="CacheType"
+                  typeConverter="CacheType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies how the Lookup transformation handles rows without matching entries in the reference data set."
+                  name="NoMatchBehavior"
+                  typeConverter="LookupNoMatchBehavior">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the percentage of the cache that is allocated for rows with no matching entries in the reference dataset."
+                  name="NoMatchCachePercentage">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Maximum Memory Usage for Reference Cache on a 32 bit platform."
+                  name="MaxMemoryUsage">25</property>
+                <property
+                  dataType="System.Int64"
+                  description="Maximum Memory Usage for Reference Cache on a 64 bit platform."
+                  name="MaxMemoryUsage64">25</property>
+                <property
+                  dataType="System.String"
+                  description="Indicates whether to reference metadata in an XML format."
+                  name="ReferenceMetadataXml">&lt;referenceMetadata&gt;&lt;referenceColumns&gt;&lt;referenceColumn name="CarSK" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="CarID" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="CarMake" dataType="DT_WSTR" length="50" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="CarModel" dataType="DT_WSTR" length="50" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="CarYear" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="Category" dataType="DT_WSTR" length="50" precision="0" scale="0" codePage="0"/&gt;&lt;/referenceColumns&gt;&lt;/referenceMetadata&gt;</property>
+                <property
+                  containsID="true"
+                  dataType="System.String"
+                  description="Specifies the list of lineage identifiers that map to the parameters that the SQL statement in the SQLCommand property uses. Entries in the list are separated by semicolons."
+                  name="ParameterMap">#{Package\Transform and Load FacSales\StgSales Source.Outputs[OLE DB Source Output].Columns[CarID]};</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Determines whether duplicate keys in the reference data should be treated as errors when full cache mode is used."
+                  name="TreatDuplicateKeysAsError">false</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Transform and Load FacSales\Car Lookup.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[localhost\SQLEXPRESS.CarSales_DW]"
+                  connectionManagerRefId="Package.ConnectionManagers[localhost\SQLEXPRESS.CarSales_DW]"
+                  description="Connection manager used to access lookup data."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Transform and Load FacSales\Car Lookup.Inputs[Lookup Input]"
+                  name="Lookup Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Transform and Load FacSales\Car Lookup.Inputs[Lookup Input].Columns[CarID]"
+                      cachedDataType="i4"
+                      cachedName="CarID"
+                      lineageId="Package\Transform and Load FacSales\StgSales Source.Outputs[OLE DB Source Output].Columns[CarID]">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table that a column joins."
+                          name="JoinToReferenceColumn">CarID</property>
+                        <property
+                          dataType="System.Null"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn" />
+                      </properties>
+                    </inputColumn>
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Transform and Load FacSales\Car Lookup.Outputs[Lookup Match Output]"
+                  errorOrTruncationOperation="Lookup"
+                  errorRowDisposition="FailComponent"
+                  exclusionGroup="1"
+                  name="Lookup Match Output"
+                  synchronousInputId="Package\Transform and Load FacSales\Car Lookup.Inputs[Lookup Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Transform and Load FacSales\Car Lookup.Outputs[Lookup Match Output].Columns[CarSK]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Copy Column"
+                      lineageId="Package\Transform and Load FacSales\Car Lookup.Outputs[Lookup Match Output].Columns[CarSK]"
+                      name="CarSK"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn">CarSK</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Transform and Load FacSales\Car Lookup.Outputs[Lookup No Match Output]"
+                  description="The Lookup output that handles rows with no matching entries in the reference dataset. Use this output when the NoMatchBehavior property is set to &quot;Send rows with no matching entries to the no match output.&quot;"
+                  exclusionGroup="1"
+                  name="Lookup No Match Output"
+                  synchronousInputId="Package\Transform and Load FacSales\Car Lookup.Inputs[Lookup Input]">
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Transform and Load FacSales\Car Lookup.Outputs[Lookup Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Lookup Error Output"
+                  synchronousInputId="Package\Transform and Load FacSales\Car Lookup.Inputs[Lookup Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Transform and Load FacSales\Car Lookup.Outputs[Lookup Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Transform and Load FacSales\Car Lookup.Outputs[Lookup Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Transform and Load FacSales\Car Lookup.Outputs[Lookup Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Transform and Load FacSales\Car Lookup.Outputs[Lookup Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Transform and Load FacSales\Customer Lookup"
+              componentClassID="Microsoft.Lookup"
+              contactInfo="Lookup;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;6"
+              description="Joins additional columns to the data flow by looking up values in a table. For example, join to the 'employee id' column the employees table to get 'hire date' and 'employee name'. We recommend this transformation when the lookup table can fit into memory."
+              name="Customer Lookup"
+              usesDispositions="true"
+              version="6">
+              <properties>
+                <property
+                  dataType="System.String"
+                  description="Specifies the SQL statement that generates the lookup table."
+                  expressionType="Notify"
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">select * from [dbo].[DimCustomer]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies a SQL statement that uses parameters to generate the lookup table."
+                  expressionType="Notify"
+                  name="SqlCommandParam"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">select * from (select * from [dbo].[DimCustomer]) [refTable]
+where [refTable].[CustomerName] = ?</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the type of connection used to access the reference dataset."
+                  name="ConnectionType"
+                  typeConverter="LookupConnectionType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the cache type of the lookup table."
+                  name="CacheType"
+                  typeConverter="CacheType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies how the Lookup transformation handles rows without matching entries in the reference data set."
+                  name="NoMatchBehavior"
+                  typeConverter="LookupNoMatchBehavior">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the percentage of the cache that is allocated for rows with no matching entries in the reference dataset."
+                  name="NoMatchCachePercentage">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Maximum Memory Usage for Reference Cache on a 32 bit platform."
+                  name="MaxMemoryUsage">25</property>
+                <property
+                  dataType="System.Int64"
+                  description="Maximum Memory Usage for Reference Cache on a 64 bit platform."
+                  name="MaxMemoryUsage64">25</property>
+                <property
+                  dataType="System.String"
+                  description="Indicates whether to reference metadata in an XML format."
+                  name="ReferenceMetadataXml">&lt;referenceMetadata&gt;&lt;referenceColumns&gt;&lt;referenceColumn name="CustomerSK" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="CustomerName" dataType="DT_WSTR" length="100" precision="0" scale="0" codePage="0"/&gt;&lt;/referenceColumns&gt;&lt;/referenceMetadata&gt;</property>
+                <property
+                  containsID="true"
+                  dataType="System.String"
+                  description="Specifies the list of lineage identifiers that map to the parameters that the SQL statement in the SQLCommand property uses. Entries in the list are separated by semicolons."
+                  name="ParameterMap">#{Package\Transform and Load FacSales\StgSales Source.Outputs[OLE DB Source Output].Columns[CustomerName]};</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Determines whether duplicate keys in the reference data should be treated as errors when full cache mode is used."
+                  name="TreatDuplicateKeysAsError">false</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Transform and Load FacSales\Customer Lookup.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[localhost\SQLEXPRESS.CarSales_DW]"
+                  connectionManagerRefId="Package.ConnectionManagers[localhost\SQLEXPRESS.CarSales_DW]"
+                  description="Connection manager used to access lookup data."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Transform and Load FacSales\Customer Lookup.Inputs[Lookup Input]"
+                  name="Lookup Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Transform and Load FacSales\Customer Lookup.Inputs[Lookup Input].Columns[CustomerName]"
+                      cachedDataType="wstr"
+                      cachedLength="100"
+                      cachedName="CustomerName"
+                      lineageId="Package\Transform and Load FacSales\StgSales Source.Outputs[OLE DB Source Output].Columns[CustomerName]">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table that a column joins."
+                          name="JoinToReferenceColumn">CustomerName</property>
+                        <property
+                          dataType="System.Null"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn" />
+                      </properties>
+                    </inputColumn>
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Transform and Load FacSales\Customer Lookup.Outputs[Lookup Match Output]"
+                  errorOrTruncationOperation="Lookup"
+                  errorRowDisposition="FailComponent"
+                  exclusionGroup="1"
+                  name="Lookup Match Output"
+                  synchronousInputId="Package\Transform and Load FacSales\Customer Lookup.Inputs[Lookup Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Transform and Load FacSales\Customer Lookup.Outputs[Lookup Match Output].Columns[CustomerSK]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Copy Column"
+                      lineageId="Package\Transform and Load FacSales\Customer Lookup.Outputs[Lookup Match Output].Columns[CustomerSK]"
+                      name="CustomerSK"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn">CustomerSK</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Transform and Load FacSales\Customer Lookup.Outputs[Lookup No Match Output]"
+                  description="The Lookup output that handles rows with no matching entries in the reference dataset. Use this output when the NoMatchBehavior property is set to &quot;Send rows with no matching entries to the no match output.&quot;"
+                  exclusionGroup="1"
+                  name="Lookup No Match Output"
+                  synchronousInputId="Package\Transform and Load FacSales\Customer Lookup.Inputs[Lookup Input]">
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Transform and Load FacSales\Customer Lookup.Outputs[Lookup Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Lookup Error Output"
+                  synchronousInputId="Package\Transform and Load FacSales\Customer Lookup.Inputs[Lookup Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Transform and Load FacSales\Customer Lookup.Outputs[Lookup Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Transform and Load FacSales\Customer Lookup.Outputs[Lookup Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Transform and Load FacSales\Customer Lookup.Outputs[Lookup Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Transform and Load FacSales\Customer Lookup.Outputs[Lookup Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Transform and Load FacSales\Date Lookup"
+              componentClassID="Microsoft.Lookup"
+              contactInfo="Lookup;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;6"
+              description="Joins additional columns to the data flow by looking up values in a table. For example, join to the 'employee id' column the employees table to get 'hire date' and 'employee name'. We recommend this transformation when the lookup table can fit into memory."
+              name="Date Lookup"
+              usesDispositions="true"
+              version="6">
+              <properties>
+                <property
+                  dataType="System.String"
+                  description="Specifies the SQL statement that generates the lookup table."
+                  expressionType="Notify"
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">select * from [dbo].[DimDate]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies a SQL statement that uses parameters to generate the lookup table."
+                  expressionType="Notify"
+                  name="SqlCommandParam"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">select * from (select * from [dbo].[DimDate]) [refTable]
+where [refTable].[FullDate] = ?</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the type of connection used to access the reference dataset."
+                  name="ConnectionType"
+                  typeConverter="LookupConnectionType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the cache type of the lookup table."
+                  name="CacheType"
+                  typeConverter="CacheType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies how the Lookup transformation handles rows without matching entries in the reference data set."
+                  name="NoMatchBehavior"
+                  typeConverter="LookupNoMatchBehavior">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the percentage of the cache that is allocated for rows with no matching entries in the reference dataset."
+                  name="NoMatchCachePercentage">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Maximum Memory Usage for Reference Cache on a 32 bit platform."
+                  name="MaxMemoryUsage">25</property>
+                <property
+                  dataType="System.Int64"
+                  description="Maximum Memory Usage for Reference Cache on a 64 bit platform."
+                  name="MaxMemoryUsage64">25</property>
+                <property
+                  dataType="System.String"
+                  description="Indicates whether to reference metadata in an XML format."
+                  name="ReferenceMetadataXml">&lt;referenceMetadata&gt;&lt;referenceColumns&gt;&lt;referenceColumn name="DateSK" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="FullDate" dataType="DT_WSTR" length="10" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="Day" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="Month" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="Quarter" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="Year" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;/referenceColumns&gt;&lt;/referenceMetadata&gt;</property>
+                <property
+                  containsID="true"
+                  dataType="System.String"
+                  description="Specifies the list of lineage identifiers that map to the parameters that the SQL statement in the SQLCommand property uses. Entries in the list are separated by semicolons."
+                  name="ParameterMap">#{Package\Transform and Load FacSales\StgSales Source.Outputs[OLE DB Source Output].Columns[SaleDate]};</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Determines whether duplicate keys in the reference data should be treated as errors when full cache mode is used."
+                  name="TreatDuplicateKeysAsError">false</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Transform and Load FacSales\Date Lookup.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[localhost\SQLEXPRESS.CarSales_DW]"
+                  connectionManagerRefId="Package.ConnectionManagers[localhost\SQLEXPRESS.CarSales_DW]"
+                  description="Connection manager used to access lookup data."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Transform and Load FacSales\Date Lookup.Inputs[Lookup Input]"
+                  name="Lookup Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Transform and Load FacSales\Date Lookup.Inputs[Lookup Input].Columns[SaleDate]"
+                      cachedDataType="wstr"
+                      cachedLength="10"
+                      cachedName="SaleDate"
+                      lineageId="Package\Transform and Load FacSales\StgSales Source.Outputs[OLE DB Source Output].Columns[SaleDate]">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table that a column joins."
+                          name="JoinToReferenceColumn">FullDate</property>
+                        <property
+                          dataType="System.Null"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn" />
+                      </properties>
+                    </inputColumn>
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Transform and Load FacSales\Date Lookup.Outputs[Lookup Match Output]"
+                  errorOrTruncationOperation="Lookup"
+                  errorRowDisposition="IgnoreFailure"
+                  exclusionGroup="1"
+                  name="Lookup Match Output"
+                  synchronousInputId="Package\Transform and Load FacSales\Date Lookup.Inputs[Lookup Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Transform and Load FacSales\Date Lookup.Outputs[Lookup Match Output].Columns[DateSK]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Copy Column"
+                      lineageId="Package\Transform and Load FacSales\Date Lookup.Outputs[Lookup Match Output].Columns[DateSK]"
+                      name="DateSK"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn">DateSK</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Transform and Load FacSales\Date Lookup.Outputs[Lookup No Match Output]"
+                  description="The Lookup output that handles rows with no matching entries in the reference dataset. Use this output when the NoMatchBehavior property is set to &quot;Send rows with no matching entries to the no match output.&quot;"
+                  exclusionGroup="1"
+                  name="Lookup No Match Output"
+                  synchronousInputId="Package\Transform and Load FacSales\Date Lookup.Inputs[Lookup Input]">
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Transform and Load FacSales\Date Lookup.Outputs[Lookup Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Lookup Error Output"
+                  synchronousInputId="Package\Transform and Load FacSales\Date Lookup.Inputs[Lookup Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Transform and Load FacSales\Date Lookup.Outputs[Lookup Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Transform and Load FacSales\Date Lookup.Outputs[Lookup Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Transform and Load FacSales\Date Lookup.Outputs[Lookup Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Transform and Load FacSales\Date Lookup.Outputs[Lookup Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Transform and Load FacSales\FactSales Destination"
+              componentClassID="Microsoft.OLEDBDestination"
+              contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+              description="OLE DB Destination"
+              name="FactSales Destination"
+              usesDispositions="true"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[dbo].[FacSales]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">3</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepIdentity">true</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepNulls">false</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                  name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                  name="FastLoadMaxInsertCommitSize">2147483647</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Transform and Load FacSales\FactSales Destination.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[localhost\SQLEXPRESS.CarSales_DW]"
+                  connectionManagerRefId="Package.ConnectionManagers[localhost\SQLEXPRESS.CarSales_DW]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Transform and Load FacSales\FactSales Destination.Inputs[OLE DB Destination Input]"
+                  errorOrTruncationOperation="Insert"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="OLE DB Destination Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Transform and Load FacSales\FactSales Destination.Inputs[OLE DB Destination Input].Columns[CommissionRate]"
+                      cachedDataType="r8"
+                      cachedName="CommissionRate"
+                      externalMetadataColumnId="Package\Transform and Load FacSales\FactSales Destination.Inputs[OLE DB Destination Input].ExternalColumns[CommissionRate]"
+                      lineageId="Package\Transform and Load FacSales\StgSales Source.Outputs[OLE DB Source Output].Columns[CommissionRate]" />
+                    <inputColumn
+                      refId="Package\Transform and Load FacSales\FactSales Destination.Inputs[OLE DB Destination Input].Columns[CommissionEarned]"
+                      cachedDataType="r8"
+                      cachedName="CommissionEarned"
+                      externalMetadataColumnId="Package\Transform and Load FacSales\FactSales Destination.Inputs[OLE DB Destination Input].ExternalColumns[CommissionEarned]"
+                      lineageId="Package\Transform and Load FacSales\StgSales Source.Outputs[OLE DB Source Output].Columns[CommissionEarned]" />
+                    <inputColumn
+                      refId="Package\Transform and Load FacSales\FactSales Destination.Inputs[OLE DB Destination Input].Columns[DateSK]"
+                      cachedDataType="i4"
+                      cachedName="DateSK"
+                      externalMetadataColumnId="Package\Transform and Load FacSales\FactSales Destination.Inputs[OLE DB Destination Input].ExternalColumns[DateSK]"
+                      lineageId="Package\Transform and Load FacSales\Date Lookup.Outputs[Lookup Match Output].Columns[DateSK]" />
+                    <inputColumn
+                      refId="Package\Transform and Load FacSales\FactSales Destination.Inputs[OLE DB Destination Input].Columns[SalespersonSK]"
+                      cachedDataType="i4"
+                      cachedName="SalespersonSK"
+                      externalMetadataColumnId="Package\Transform and Load FacSales\FactSales Destination.Inputs[OLE DB Destination Input].ExternalColumns[SalespersonSK]"
+                      lineageId="Package\Transform and Load FacSales\Salesperson Lookup.Outputs[Lookup Match Output].Columns[SalespersonSK]" />
+                    <inputColumn
+                      refId="Package\Transform and Load FacSales\FactSales Destination.Inputs[OLE DB Destination Input].Columns[CarSK]"
+                      cachedDataType="i4"
+                      cachedName="CarSK"
+                      externalMetadataColumnId="Package\Transform and Load FacSales\FactSales Destination.Inputs[OLE DB Destination Input].ExternalColumns[CarSK]"
+                      lineageId="Package\Transform and Load FacSales\Car Lookup.Outputs[Lookup Match Output].Columns[CarSK]" />
+                    <inputColumn
+                      refId="Package\Transform and Load FacSales\FactSales Destination.Inputs[OLE DB Destination Input].Columns[CustomerSK]"
+                      cachedDataType="i4"
+                      cachedName="CustomerSK"
+                      externalMetadataColumnId="Package\Transform and Load FacSales\FactSales Destination.Inputs[OLE DB Destination Input].ExternalColumns[CustomerSK]"
+                      lineageId="Package\Transform and Load FacSales\Customer Lookup.Outputs[Lookup Match Output].Columns[CustomerSK]" />
+                    <inputColumn
+                      refId="Package\Transform and Load FacSales\FactSales Destination.Inputs[OLE DB Destination Input].Columns[accm_txn_create_time]"
+                      cachedDataType="dbTimeStamp"
+                      cachedName="accm_txn_create_time"
+                      externalMetadataColumnId="Package\Transform and Load FacSales\FactSales Destination.Inputs[OLE DB Destination Input].ExternalColumns[accm_txn_create_time]"
+                      lineageId="Package\Transform and Load FacSales\Set Create Time.Outputs[Derived Column Output].Columns[accm_txn_create_time]" />
+                    <inputColumn
+                      refId="Package\Transform and Load FacSales\FactSales Destination.Inputs[OLE DB Destination Input].Columns[SaleID]"
+                      cachedDataType="i4"
+                      cachedName="SaleID"
+                      externalMetadataColumnId="Package\Transform and Load FacSales\FactSales Destination.Inputs[OLE DB Destination Input].ExternalColumns[SalesID]"
+                      lineageId="Package\Transform and Load FacSales\StgSales Source.Outputs[OLE DB Source Output].Columns[SaleID]" />
+                    <inputColumn
+                      refId="Package\Transform and Load FacSales\FactSales Destination.Inputs[OLE DB Destination Input].Columns[SalePrice]"
+                      cachedDataType="numeric"
+                      cachedName="SalePrice"
+                      cachedPrecision="10"
+                      cachedScale="2"
+                      externalMetadataColumnId="Package\Transform and Load FacSales\FactSales Destination.Inputs[OLE DB Destination Input].ExternalColumns[SalesPrice]"
+                      lineageId="Package\Transform and Load FacSales\StgSales Source.Outputs[OLE DB Source Output].Columns[SalePrice]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Transform and Load FacSales\FactSales Destination.Inputs[OLE DB Destination Input].ExternalColumns[SalesID]"
+                      dataType="i4"
+                      name="SalesID" />
+                    <externalMetadataColumn
+                      refId="Package\Transform and Load FacSales\FactSales Destination.Inputs[OLE DB Destination Input].ExternalColumns[DateSK]"
+                      dataType="i4"
+                      name="DateSK" />
+                    <externalMetadataColumn
+                      refId="Package\Transform and Load FacSales\FactSales Destination.Inputs[OLE DB Destination Input].ExternalColumns[SalespersonSK]"
+                      dataType="i4"
+                      name="SalespersonSK" />
+                    <externalMetadataColumn
+                      refId="Package\Transform and Load FacSales\FactSales Destination.Inputs[OLE DB Destination Input].ExternalColumns[CarSK]"
+                      dataType="i4"
+                      name="CarSK" />
+                    <externalMetadataColumn
+                      refId="Package\Transform and Load FacSales\FactSales Destination.Inputs[OLE DB Destination Input].ExternalColumns[CustomerSK]"
+                      dataType="i4"
+                      name="CustomerSK" />
+                    <externalMetadataColumn
+                      refId="Package\Transform and Load FacSales\FactSales Destination.Inputs[OLE DB Destination Input].ExternalColumns[SalesPrice]"
+                      dataType="numeric"
+                      name="SalesPrice"
+                      precision="10"
+                      scale="2" />
+                    <externalMetadataColumn
+                      refId="Package\Transform and Load FacSales\FactSales Destination.Inputs[OLE DB Destination Input].ExternalColumns[CommissionRate]"
+                      dataType="numeric"
+                      name="CommissionRate"
+                      precision="5"
+                      scale="4" />
+                    <externalMetadataColumn
+                      refId="Package\Transform and Load FacSales\FactSales Destination.Inputs[OLE DB Destination Input].ExternalColumns[CommissionEarned]"
+                      dataType="numeric"
+                      name="CommissionEarned"
+                      precision="10"
+                      scale="2" />
+                    <externalMetadataColumn
+                      refId="Package\Transform and Load FacSales\FactSales Destination.Inputs[OLE DB Destination Input].ExternalColumns[accm_txn_create_time]"
+                      dataType="dbTimeStamp"
+                      name="accm_txn_create_time" />
+                    <externalMetadataColumn
+                      refId="Package\Transform and Load FacSales\FactSales Destination.Inputs[OLE DB Destination Input].ExternalColumns[accm_txn_complete_time]"
+                      dataType="dbTimeStamp"
+                      name="accm_txn_complete_time" />
+                    <externalMetadataColumn
+                      refId="Package\Transform and Load FacSales\FactSales Destination.Inputs[OLE DB Destination Input].ExternalColumns[txn_process_time_hours]"
+                      dataType="numeric"
+                      name="txn_process_time_hours"
+                      precision="10"
+                      scale="2" />
+                    <externalMetadataColumn
+                      refId="Package\Transform and Load FacSales\FactSales Destination.Inputs[OLE DB Destination Input].ExternalColumns[CarMakeSK]"
+                      dataType="i4"
+                      name="CarMakeSK" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Transform and Load FacSales\FactSales Destination.Outputs[OLE DB Destination Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="OLE DB Destination Error Output"
+                  synchronousInputId="Package\Transform and Load FacSales\FactSales Destination.Inputs[OLE DB Destination Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Transform and Load FacSales\FactSales Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Transform and Load FacSales\FactSales Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Transform and Load FacSales\FactSales Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Transform and Load FacSales\FactSales Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Transform and Load FacSales\Salesperson Lookup"
+              componentClassID="Microsoft.Lookup"
+              contactInfo="Lookup;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;6"
+              description="Joins additional columns to the data flow by looking up values in a table. For example, join to the 'employee id' column the employees table to get 'hire date' and 'employee name'. We recommend this transformation when the lookup table can fit into memory."
+              name="Salesperson Lookup"
+              usesDispositions="true"
+              version="6">
+              <properties>
+                <property
+                  dataType="System.String"
+                  description="Specifies the SQL statement that generates the lookup table."
+                  expressionType="Notify"
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">SELECT SalespersonSK, SalespersonID FROM DimSalesperson WHERE IsCurrent = 1</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies a SQL statement that uses parameters to generate the lookup table."
+                  expressionType="Notify"
+                  name="SqlCommandParam"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">select * from (SELECT SalespersonSK, SalespersonID FROM DimSalesperson WHERE IsCurrent = 1) [refTable]
+where [refTable].[SalespersonID] = ?</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the type of connection used to access the reference dataset."
+                  name="ConnectionType"
+                  typeConverter="LookupConnectionType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the cache type of the lookup table."
+                  name="CacheType"
+                  typeConverter="CacheType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies how the Lookup transformation handles rows without matching entries in the reference data set."
+                  name="NoMatchBehavior"
+                  typeConverter="LookupNoMatchBehavior">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the percentage of the cache that is allocated for rows with no matching entries in the reference dataset."
+                  name="NoMatchCachePercentage">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Maximum Memory Usage for Reference Cache on a 32 bit platform."
+                  name="MaxMemoryUsage">25</property>
+                <property
+                  dataType="System.Int64"
+                  description="Maximum Memory Usage for Reference Cache on a 64 bit platform."
+                  name="MaxMemoryUsage64">25</property>
+                <property
+                  dataType="System.String"
+                  description="Indicates whether to reference metadata in an XML format."
+                  name="ReferenceMetadataXml">&lt;referenceMetadata&gt;&lt;referenceColumns&gt;&lt;referenceColumn name="SalespersonSK" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="SalespersonID" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;/referenceColumns&gt;&lt;/referenceMetadata&gt;</property>
+                <property
+                  containsID="true"
+                  dataType="System.String"
+                  description="Specifies the list of lineage identifiers that map to the parameters that the SQL statement in the SQLCommand property uses. Entries in the list are separated by semicolons."
+                  name="ParameterMap">#{Package\Transform and Load FacSales\StgSales Source.Outputs[OLE DB Source Output].Columns[SalespersonID]};</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Determines whether duplicate keys in the reference data should be treated as errors when full cache mode is used."
+                  name="TreatDuplicateKeysAsError">false</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Transform and Load FacSales\Salesperson Lookup.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[localhost\SQLEXPRESS.CarSales_DW]"
+                  connectionManagerRefId="Package.ConnectionManagers[localhost\SQLEXPRESS.CarSales_DW]"
+                  description="Connection manager used to access lookup data."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Transform and Load FacSales\Salesperson Lookup.Inputs[Lookup Input]"
+                  name="Lookup Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Transform and Load FacSales\Salesperson Lookup.Inputs[Lookup Input].Columns[SalespersonID]"
+                      cachedDataType="i4"
+                      cachedName="SalespersonID"
+                      lineageId="Package\Transform and Load FacSales\StgSales Source.Outputs[OLE DB Source Output].Columns[SalespersonID]">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table that a column joins."
+                          name="JoinToReferenceColumn">SalespersonID</property>
+                        <property
+                          dataType="System.Null"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn" />
+                      </properties>
+                    </inputColumn>
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Transform and Load FacSales\Salesperson Lookup.Outputs[Lookup Match Output]"
+                  errorOrTruncationOperation="Lookup"
+                  errorRowDisposition="FailComponent"
+                  exclusionGroup="1"
+                  name="Lookup Match Output"
+                  synchronousInputId="Package\Transform and Load FacSales\Salesperson Lookup.Inputs[Lookup Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Transform and Load FacSales\Salesperson Lookup.Outputs[Lookup Match Output].Columns[SalespersonSK]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Copy Column"
+                      lineageId="Package\Transform and Load FacSales\Salesperson Lookup.Outputs[Lookup Match Output].Columns[SalespersonSK]"
+                      name="SalespersonSK"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn">SalespersonSK</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Transform and Load FacSales\Salesperson Lookup.Outputs[Lookup No Match Output]"
+                  description="The Lookup output that handles rows with no matching entries in the reference dataset. Use this output when the NoMatchBehavior property is set to &quot;Send rows with no matching entries to the no match output.&quot;"
+                  exclusionGroup="1"
+                  name="Lookup No Match Output"
+                  synchronousInputId="Package\Transform and Load FacSales\Salesperson Lookup.Inputs[Lookup Input]">
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Transform and Load FacSales\Salesperson Lookup.Outputs[Lookup Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Lookup Error Output"
+                  synchronousInputId="Package\Transform and Load FacSales\Salesperson Lookup.Inputs[Lookup Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Transform and Load FacSales\Salesperson Lookup.Outputs[Lookup Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Transform and Load FacSales\Salesperson Lookup.Outputs[Lookup Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Transform and Load FacSales\Salesperson Lookup.Outputs[Lookup Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Transform and Load FacSales\Salesperson Lookup.Outputs[Lookup Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Transform and Load FacSales\Set Create Time"
+              componentClassID="Microsoft.DerivedColumn"
+              contactInfo="Derived Column;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+              description="Creates new column values by applying expressions to transformation input columns. Create new columns or overwrite existing ones. For example, concatenate the values from the 'first name' and 'last name' column to make a 'full name' column."
+              name="Set Create Time"
+              usesDispositions="true">
+              <inputs>
+                <input
+                  refId="Package\Transform and Load FacSales\Set Create Time.Inputs[Derived Column Input]"
+                  description="Input to the Derived Column Transformation"
+                  name="Derived Column Input">
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Transform and Load FacSales\Set Create Time.Outputs[Derived Column Output]"
+                  description="Default Output of the Derived Column Transformation"
+                  exclusionGroup="1"
+                  name="Derived Column Output"
+                  synchronousInputId="Package\Transform and Load FacSales\Set Create Time.Inputs[Derived Column Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Transform and Load FacSales\Set Create Time.Outputs[Derived Column Output].Columns[accm_txn_create_time]"
+                      dataType="dbTimeStamp"
+                      errorOrTruncationOperation="Computation"
+                      errorRowDisposition="FailComponent"
+                      lineageId="Package\Transform and Load FacSales\Set Create Time.Outputs[Derived Column Output].Columns[accm_txn_create_time]"
+                      name="accm_txn_create_time"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Expression"
+                          name="Expression">[GETDATE]()</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Friendly Expression"
+                          expressionType="Notify"
+                          name="FriendlyExpression">GETDATE()</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Transform and Load FacSales\Set Create Time.Outputs[Derived Column Error Output]"
+                  description="Error Output of the Derived Column Transformation"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Derived Column Error Output"
+                  synchronousInputId="Package\Transform and Load FacSales\Set Create Time.Inputs[Derived Column Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Transform and Load FacSales\Set Create Time.Outputs[Derived Column Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Transform and Load FacSales\Set Create Time.Outputs[Derived Column Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Transform and Load FacSales\Set Create Time.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Transform and Load FacSales\Set Create Time.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Transform and Load FacSales\StgSales Source"
+              componentClassID="Microsoft.OLEDBSource"
+              contactInfo="OLE DB Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;7"
+              description="OLE DB Source"
+              name="StgSales Source"
+              usesDispositions="true"
+              version="7">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[dbo].[StgSales]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property
+                  dataType="System.String"
+                  description="The variable that contains the SQL command to be executed."
+                  name="SqlCommandVariable"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">0</property>
+                <property
+                  dataType="System.String"
+                  description="The mappings between the parameters in the SQL command and variables."
+                  name="ParameterMapping"></property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Transform and Load FacSales\StgSales Source.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[localhost\SQLEXPRESS.CarSales_Staging]"
+                  connectionManagerRefId="Package.ConnectionManagers[localhost\SQLEXPRESS.CarSales_Staging]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\Transform and Load FacSales\StgSales Source.Outputs[OLE DB Source Output]"
+                  name="OLE DB Source Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Transform and Load FacSales\StgSales Source.Outputs[OLE DB Source Output].Columns[SaleID]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Transform and Load FacSales\StgSales Source.Outputs[OLE DB Source Output].ExternalColumns[SaleID]"
+                      lineageId="Package\Transform and Load FacSales\StgSales Source.Outputs[OLE DB Source Output].Columns[SaleID]"
+                      name="SaleID"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Transform and Load FacSales\StgSales Source.Outputs[OLE DB Source Output].Columns[SaleDate]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Transform and Load FacSales\StgSales Source.Outputs[OLE DB Source Output].ExternalColumns[SaleDate]"
+                      length="10"
+                      lineageId="Package\Transform and Load FacSales\StgSales Source.Outputs[OLE DB Source Output].Columns[SaleDate]"
+                      name="SaleDate"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Transform and Load FacSales\StgSales Source.Outputs[OLE DB Source Output].Columns[SalespersonID]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Transform and Load FacSales\StgSales Source.Outputs[OLE DB Source Output].ExternalColumns[SalespersonID]"
+                      lineageId="Package\Transform and Load FacSales\StgSales Source.Outputs[OLE DB Source Output].Columns[SalespersonID]"
+                      name="SalespersonID"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Transform and Load FacSales\StgSales Source.Outputs[OLE DB Source Output].Columns[CustomerName]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Transform and Load FacSales\StgSales Source.Outputs[OLE DB Source Output].ExternalColumns[CustomerName]"
+                      length="100"
+                      lineageId="Package\Transform and Load FacSales\StgSales Source.Outputs[OLE DB Source Output].Columns[CustomerName]"
+                      name="CustomerName"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Transform and Load FacSales\StgSales Source.Outputs[OLE DB Source Output].Columns[CarID]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Transform and Load FacSales\StgSales Source.Outputs[OLE DB Source Output].ExternalColumns[CarID]"
+                      lineageId="Package\Transform and Load FacSales\StgSales Source.Outputs[OLE DB Source Output].Columns[CarID]"
+                      name="CarID"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Transform and Load FacSales\StgSales Source.Outputs[OLE DB Source Output].Columns[SalePrice]"
+                      dataType="numeric"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Transform and Load FacSales\StgSales Source.Outputs[OLE DB Source Output].ExternalColumns[SalePrice]"
+                      lineageId="Package\Transform and Load FacSales\StgSales Source.Outputs[OLE DB Source Output].Columns[SalePrice]"
+                      name="SalePrice"
+                      precision="10"
+                      scale="2"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Transform and Load FacSales\StgSales Source.Outputs[OLE DB Source Output].Columns[CommissionRate]"
+                      dataType="r8"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Transform and Load FacSales\StgSales Source.Outputs[OLE DB Source Output].ExternalColumns[CommissionRate]"
+                      lineageId="Package\Transform and Load FacSales\StgSales Source.Outputs[OLE DB Source Output].Columns[CommissionRate]"
+                      name="CommissionRate"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Transform and Load FacSales\StgSales Source.Outputs[OLE DB Source Output].Columns[CommissionEarned]"
+                      dataType="r8"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Transform and Load FacSales\StgSales Source.Outputs[OLE DB Source Output].ExternalColumns[CommissionEarned]"
+                      lineageId="Package\Transform and Load FacSales\StgSales Source.Outputs[OLE DB Source Output].Columns[CommissionEarned]"
+                      name="CommissionEarned"
+                      truncationRowDisposition="FailComponent" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Transform and Load FacSales\StgSales Source.Outputs[OLE DB Source Output].ExternalColumns[SaleID]"
+                      dataType="i4"
+                      name="SaleID" />
+                    <externalMetadataColumn
+                      refId="Package\Transform and Load FacSales\StgSales Source.Outputs[OLE DB Source Output].ExternalColumns[SaleDate]"
+                      dataType="wstr"
+                      length="10"
+                      name="SaleDate" />
+                    <externalMetadataColumn
+                      refId="Package\Transform and Load FacSales\StgSales Source.Outputs[OLE DB Source Output].ExternalColumns[SalespersonID]"
+                      dataType="i4"
+                      name="SalespersonID" />
+                    <externalMetadataColumn
+                      refId="Package\Transform and Load FacSales\StgSales Source.Outputs[OLE DB Source Output].ExternalColumns[CustomerName]"
+                      dataType="wstr"
+                      length="100"
+                      name="CustomerName" />
+                    <externalMetadataColumn
+                      refId="Package\Transform and Load FacSales\StgSales Source.Outputs[OLE DB Source Output].ExternalColumns[CarID]"
+                      dataType="i4"
+                      name="CarID" />
+                    <externalMetadataColumn
+                      refId="Package\Transform and Load FacSales\StgSales Source.Outputs[OLE DB Source Output].ExternalColumns[SalePrice]"
+                      dataType="numeric"
+                      name="SalePrice"
+                      precision="10"
+                      scale="2" />
+                    <externalMetadataColumn
+                      refId="Package\Transform and Load FacSales\StgSales Source.Outputs[OLE DB Source Output].ExternalColumns[CommissionRate]"
+                      dataType="r8"
+                      name="CommissionRate" />
+                    <externalMetadataColumn
+                      refId="Package\Transform and Load FacSales\StgSales Source.Outputs[OLE DB Source Output].ExternalColumns[CommissionEarned]"
+                      dataType="r8"
+                      name="CommissionEarned" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\Transform and Load FacSales\StgSales Source.Outputs[OLE DB Source Error Output]"
+                  isErrorOut="true"
+                  name="OLE DB Source Error Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Transform and Load FacSales\StgSales Source.Outputs[OLE DB Source Error Output].Columns[SaleID]"
+                      dataType="i4"
+                      lineageId="Package\Transform and Load FacSales\StgSales Source.Outputs[OLE DB Source Error Output].Columns[SaleID]"
+                      name="SaleID" />
+                    <outputColumn
+                      refId="Package\Transform and Load FacSales\StgSales Source.Outputs[OLE DB Source Error Output].Columns[SaleDate]"
+                      dataType="wstr"
+                      length="10"
+                      lineageId="Package\Transform and Load FacSales\StgSales Source.Outputs[OLE DB Source Error Output].Columns[SaleDate]"
+                      name="SaleDate" />
+                    <outputColumn
+                      refId="Package\Transform and Load FacSales\StgSales Source.Outputs[OLE DB Source Error Output].Columns[SalespersonID]"
+                      dataType="i4"
+                      lineageId="Package\Transform and Load FacSales\StgSales Source.Outputs[OLE DB Source Error Output].Columns[SalespersonID]"
+                      name="SalespersonID" />
+                    <outputColumn
+                      refId="Package\Transform and Load FacSales\StgSales Source.Outputs[OLE DB Source Error Output].Columns[CustomerName]"
+                      dataType="wstr"
+                      length="100"
+                      lineageId="Package\Transform and Load FacSales\StgSales Source.Outputs[OLE DB Source Error Output].Columns[CustomerName]"
+                      name="CustomerName" />
+                    <outputColumn
+                      refId="Package\Transform and Load FacSales\StgSales Source.Outputs[OLE DB Source Error Output].Columns[CarID]"
+                      dataType="i4"
+                      lineageId="Package\Transform and Load FacSales\StgSales Source.Outputs[OLE DB Source Error Output].Columns[CarID]"
+                      name="CarID" />
+                    <outputColumn
+                      refId="Package\Transform and Load FacSales\StgSales Source.Outputs[OLE DB Source Error Output].Columns[SalePrice]"
+                      dataType="numeric"
+                      lineageId="Package\Transform and Load FacSales\StgSales Source.Outputs[OLE DB Source Error Output].Columns[SalePrice]"
+                      name="SalePrice"
+                      precision="10"
+                      scale="2" />
+                    <outputColumn
+                      refId="Package\Transform and Load FacSales\StgSales Source.Outputs[OLE DB Source Error Output].Columns[CommissionRate]"
+                      dataType="r8"
+                      lineageId="Package\Transform and Load FacSales\StgSales Source.Outputs[OLE DB Source Error Output].Columns[CommissionRate]"
+                      name="CommissionRate" />
+                    <outputColumn
+                      refId="Package\Transform and Load FacSales\StgSales Source.Outputs[OLE DB Source Error Output].Columns[CommissionEarned]"
+                      dataType="r8"
+                      lineageId="Package\Transform and Load FacSales\StgSales Source.Outputs[OLE DB Source Error Output].Columns[CommissionEarned]"
+                      name="CommissionEarned" />
+                    <outputColumn
+                      refId="Package\Transform and Load FacSales\StgSales Source.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Transform and Load FacSales\StgSales Source.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Transform and Load FacSales\StgSales Source.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Transform and Load FacSales\StgSales Source.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+          </components>
+          <paths>
+            <path
+              refId="Package\Transform and Load FacSales.Paths[Derived Column Output]"
+              endId="Package\Transform and Load FacSales\FactSales Destination.Inputs[OLE DB Destination Input]"
+              name="Derived Column Output"
+              startId="Package\Transform and Load FacSales\Set Create Time.Outputs[Derived Column Output]" />
+            <path
+              refId="Package\Transform and Load FacSales.Paths[Lookup Match Output]"
+              endId="Package\Transform and Load FacSales\Salesperson Lookup.Inputs[Lookup Input]"
+              name="Lookup Match Output"
+              startId="Package\Transform and Load FacSales\Date Lookup.Outputs[Lookup Match Output]" />
+            <path
+              refId="Package\Transform and Load FacSales.Paths[Lookup Match Output1]"
+              endId="Package\Transform and Load FacSales\Car Lookup.Inputs[Lookup Input]"
+              name="Lookup Match Output"
+              startId="Package\Transform and Load FacSales\Salesperson Lookup.Outputs[Lookup Match Output]" />
+            <path
+              refId="Package\Transform and Load FacSales.Paths[Lookup Match Output2]"
+              endId="Package\Transform and Load FacSales\Customer Lookup.Inputs[Lookup Input]"
+              name="Lookup Match Output"
+              startId="Package\Transform and Load FacSales\Car Lookup.Outputs[Lookup Match Output]" />
+            <path
+              refId="Package\Transform and Load FacSales.Paths[Lookup Match Output3]"
+              endId="Package\Transform and Load FacSales\Set Create Time.Inputs[Derived Column Input]"
+              name="Lookup Match Output"
+              startId="Package\Transform and Load FacSales\Customer Lookup.Outputs[Lookup Match Output]" />
+            <path
+              refId="Package\Transform and Load FacSales.Paths[OLE DB Source Output]"
+              endId="Package\Transform and Load FacSales\Date Lookup.Inputs[Lookup Input]"
+              name="OLE DB Source Output"
+              startId="Package\Transform and Load FacSales\StgSales Source.Outputs[OLE DB Source Output]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:PrecedenceConstraints>
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint]"
+      DTS:CreationName=""
+      DTS:DTSID="{54E411E6-6888-4459-8EF6-77DCA78CC7CA}"
+      DTS:From="Package\Transform and Load DimSalesperson"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint"
+      DTS:To="Package\Transform and Load DimCar" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 1]"
+      DTS:CreationName=""
+      DTS:DTSID="{8E12A4FE-F0A3-4704-8208-6574D3A21281}"
+      DTS:From="Package\Transform and Load DimCar"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 1"
+      DTS:To="Package\Transform and Load DimCustomer" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 2]"
+      DTS:CreationName=""
+      DTS:DTSID="{76208CF4-7851-42ED-85A3-1A61279CAA51}"
+      DTS:From="Package\Transform and Load DimCustomer"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 2"
+      DTS:To="Package\Transform and Load FacSales" />
+  </DTS:PrecedenceConstraints>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
+<!--If you manually edit this section and make a mistake, you can delete it. -->
+<!--The package will still be able to load normally but the previous layout information will be lost and the designer will automatically re-arrange the elements on the design surface.-->
+<Objects
+  Version="8">
+  <!--Each node below will contain properties that do not affect runtime behavior.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="209.6,41.6"
+          Id="Package\Transform and Load DimCar"
+          TopLeft="164.999990984798,176.799998770555" />
+        <NodeLayout
+          Size="238.4,41.6"
+          Id="Package\Transform and Load DimCustomer"
+          TopLeft="150.833325092164,258.266664870713" />
+        <NodeLayout
+          Size="251.2,41.6"
+          Id="Package\Transform and Load DimSalesperson"
+          TopLeft="148.333325228757,93.5999993491173" />
+        <NodeLayout
+          Size="217.6,41.6"
+          Id="Package\Transform and Load FacSales"
+          TopLeft="154.166658243372,348.39999757727" />
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint]"
+          TopLeft="271.866658106777,135.199999349117">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,41.5999994214375"
+              Start="0,0"
+              End="0,34.0999994214375">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,34.0999994214375" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 1]"
+          TopLeft="269.916658038481,218.399998770555">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,39.8666661001578"
+              Start="0,0"
+              End="0,32.3666661001578">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,32.3666661001578" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 2]"
+          TopLeft="266.499991667768,299.866664870713">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,48.5333327065575"
+              Start="0,0"
+              End="0,41.0333327065575">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,41.0333327065575" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+  <TaskHost
+    design-time-name="Package\Transform and Load DimCar">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="152,41.6"
+          Id="Package\Transform and Load DimCar\OLE DB Source"
+          TopLeft="390.999994173646,131.999998033047" />
+        <NodeLayout
+          Size="139.2,41.6"
+          Id="Package\Transform and Load DimCar\Load DimCar"
+          TopLeft="467.999993026257,252.999996230006" />
+        <EdgeLayout
+          Id="Package\Transform and Load DimCar.Paths[OLE DB Source Output]"
+          TopLeft="466.999994173646,173.599998033047">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="70.5999988526107,79.3999981969594"
+              Start="0,0"
+              End="70.5999988526107,71.8999981969594">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,35.6999990984797" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,35.6999990984797"
+                    Point2="0,39.6999990984797"
+                    Point3="4,39.6999990984797" />
+                  <mssgle:LineSegment
+                    End="66.5999988526107,39.6999990984797" />
+                  <mssgle:CubicBezierSegment
+                    Point1="66.5999988526107,39.6999990984797"
+                    Point2="70.5999988526107,39.6999990984797"
+                    Point3="70.5999988526107,43.6999990984797" />
+                  <mssgle:LineSegment
+                    End="70.5999988526107,71.8999981969594" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\Transform and Load DimCar\OLE DB Source">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <TaskHost
+    design-time-name="Package\Transform and Load DimCustomer">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="152,41.6"
+          Id="Package\Transform and Load DimCustomer\OLE DB Source"
+          TopLeft="387.99999421835,160.999997600913" />
+        <NodeLayout
+          Size="168,41.6"
+          Id="Package\Transform and Load DimCustomer\Load DimCustomer"
+          TopLeft="459.999993145466,269.999995976686" />
+        <EdgeLayout
+          Id="Package\Transform and Load DimCustomer.Paths[OLE DB Source Output]"
+          TopLeft="463.99999421835,202.599997600913">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="79.9999989271164,67.3999983757734"
+              Start="0,0"
+              End="79.9999989271164,59.8999983757734">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,29.6999991878867" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,29.6999991878867"
+                    Point2="0,33.6999991878867"
+                    Point3="4,33.6999991878867" />
+                  <mssgle:LineSegment
+                    End="75.9999989271164,33.6999991878867" />
+                  <mssgle:CubicBezierSegment
+                    Point1="75.9999989271164,33.6999991878867"
+                    Point2="79.9999989271164,33.6999991878867"
+                    Point3="79.9999989271164,37.6999991878867" />
+                  <mssgle:LineSegment
+                    End="79.9999989271164,59.8999983757734" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\Transform and Load DimCustomer\OLE DB Source">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <TaskHost
+    design-time-name="Package\Transform and Load DimSalesperson">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="152,41.6"
+          Id="Package\Transform and Load DimSalesperson\OLE DB Source"
+          TopLeft="358.333313754864,61.5333329054382" />
+        <NodeLayout
+          Size="180.8,41.6"
+          Id="Package\Transform and Load DimSalesperson\Load DimSalesperson"
+          TopLeft="355.833313891458,174.199998788635" />
+        <EdgeLayout
+          Id="Package\Transform and Load DimSalesperson.Paths[OLE DB Source Output]"
+          TopLeft="434.333313754864,103.133332905438">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="11.900000136594,71.0666658831968"
+              Start="0,0"
+              End="11.900000136594,63.5666658831968">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,31.5333329415984" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,31.5333329415984"
+                    Point2="0,35.5333329415984"
+                    Point3="4,35.5333329415984" />
+                  <mssgle:LineSegment
+                    End="7.90000013659403,35.5333329415984" />
+                  <mssgle:CubicBezierSegment
+                    Point1="7.90000013659403,35.5333329415984"
+                    Point2="11.900000136594,35.5333329415984"
+                    Point3="11.900000136594,39.5333329415984" />
+                  <mssgle:LineSegment
+                    End="11.900000136594,63.5666658831968" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\Transform and Load DimSalesperson\OLE DB Source">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <TaskHost
+    design-time-name="Package\Transform and Load FacSales">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="16" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
+        <NodeLayout
+          Size="172.8,41.6"
+          Id="Package\Transform and Load FacSales\Salesperson Lookup"
+          TopLeft="244.999996349216,246.999996319413" />
+        <NodeLayout
+          Size="160,41.6"
+          Id="Package\Transform and Load FacSales\Customer Lookup"
+          TopLeft="249.99999627471,388.999994203448" />
+        <NodeLayout
+          Size="180,41.6"
+          Id="Package\Transform and Load FacSales\FactSales Destination"
+          TopLeft="596.999991104007,432.799994158745" />
+        <NodeLayout
+          Size="153.6,41.6"
+          Id="Package\Transform and Load FacSales\Set Create Time"
+          TopLeft="347.999994814396,481.99999281764" />
+        <NodeLayout
+          Size="132,41.6"
+          Id="Package\Transform and Load FacSales\Car Lookup"
+          TopLeft="265.999996036291,317.999995261431" />
+        <NodeLayout
+          Size="137.6,41.6"
+          Id="Package\Transform and Load FacSales\Date Lookup"
+          TopLeft="255.999996185303,167.999997496605" />
+        <NodeLayout
+          Size="156,41.6"
+          Id="Package\Transform and Load FacSales\StgSales Source"
+          TopLeft="332.999995037913,57.9999991357326" />
+        <EdgeLayout
+          Id="Package\Transform and Load FacSales.Paths[OLE DB Source Output]"
+          TopLeft="410.999995037913,99.5999991357326">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-86.1999988526106,68.3999983608724"
+              Start="0,0"
+              End="-86.1999988526106,60.8999983608724">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,30.1999991804362" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,30.1999991804362"
+                    Point2="0,34.1999991804362"
+                    Point3="-4,34.1999991804362" />
+                  <mssgle:LineSegment
+                    End="-82.1999988526106,34.1999991804362" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-82.1999988526106,34.1999991804362"
+                    Point2="-86.1999988526106,34.1999991804362"
+                    Point3="-86.1999988526106,38.1999991804362" />
+                  <mssgle:LineSegment
+                    End="-86.1999988526106,60.8999983608724" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Transform and Load FacSales.Paths[Lookup Match Output3]"
+          TopLeft="329.99999627471,430.599994203448">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="94.7999985396863,51.399998614192"
+              Start="0,0"
+              End="94.7999985396863,43.899998614192">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,21.699999307096" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,21.699999307096"
+                    Point2="0,25.699999307096"
+                    Point3="4,25.699999307096" />
+                  <mssgle:LineSegment
+                    End="90.7999985396863,25.699999307096" />
+                  <mssgle:CubicBezierSegment
+                    Point1="90.7999985396863,25.699999307096"
+                    Point2="94.7999985396863,25.699999307096"
+                    Point3="94.7999985396863,29.699999307096" />
+                  <mssgle:LineSegment
+                    End="94.7999985396863,43.899998614192" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-0.791387448906868,30.699999307096,96.3827734375,11.609375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Transform and Load FacSales.Paths[Lookup Match Output2]"
+          TopLeft="330.9999961555,359.599995261431">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,29.3999989420176"
+              Start="0,0"
+              End="0,21.8999989420176">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,21.8999989420176" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-48.19138671875,5.14531197100879,96.3827734375,11.609375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Transform and Load FacSales.Paths[Lookup Match Output1]"
+          TopLeft="331.699996192753,288.599996319413">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,29.3999989420175"
+              Start="0,0"
+              End="0,21.8999989420175">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,21.8999989420175" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-48.19138671875,5.14531197100877,96.3827734375,11.609375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Transform and Load FacSales.Paths[Lookup Match Output]"
+          TopLeft="328.099996267259,209.599997496605">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,37.3999988228082"
+              Start="0,0"
+              End="0,29.8999988228082">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,29.8999988228082" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-48.19138671875,9.14531191140408,96.3827734375,11.609375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Transform and Load FacSales.Paths[Derived Column Output]"
+          TopLeft="501.599994814396,502.79999281764">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="95.3999962896107,-49.1999986588955"
+              Start="0,0"
+              End="87.8999962896107,-49.1999986588955">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="43.6999981448054,0" />
+                  <mssgle:CubicBezierSegment
+                    Point1="43.6999981448054,0"
+                    Point2="47.6999981448054,0"
+                    Point3="47.6999981448054,-4" />
+                  <mssgle:LineSegment
+                    End="47.6999981448054,-45.1999986588955" />
+                  <mssgle:CubicBezierSegment
+                    Point1="47.6999981448054,-45.1999986588955"
+                    Point2="47.6999981448054,-49.1999986588955"
+                    Point3="51.6999981448054,-49.1999986588955" />
+                  <mssgle:LineSegment
+                    End="87.8999962896107,-49.1999986588955" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\Transform and Load FacSales\Salesperson Lookup">
+    <Properties>
+      <Property>
+        <Name>OverwriteParamsSQLProp</Name>
+        <Value
+          type="q2:string">false</Value>
+      </Property>
+      <Property>
+        <Name>UsedTableName</Name>
+        <Value
+          type="q3:string"></Value>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q4:string">0</Value>
+      </Property>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Transform and Load FacSales\Customer Lookup">
+    <Properties>
+      <Property>
+        <Name>OverwriteParamsSQLProp</Name>
+        <Value
+          type="q2:string">false</Value>
+      </Property>
+      <Property>
+        <Name>UsedTableName</Name>
+        <Value
+          type="q3:string">[dbo].[DimCustomer]</Value>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q4:string">0</Value>
+      </Property>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Transform and Load FacSales\FactSales Destination">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Transform and Load FacSales\Car Lookup">
+    <Properties>
+      <Property>
+        <Name>OverwriteParamsSQLProp</Name>
+        <Value
+          type="q2:string">false</Value>
+      </Property>
+      <Property>
+        <Name>UsedTableName</Name>
+        <Value
+          type="q3:string">[dbo].[DimCar]</Value>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q4:string">0</Value>
+      </Property>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Transform and Load FacSales\Date Lookup">
+    <Properties>
+      <Property>
+        <Name>OverwriteParamsSQLProp</Name>
+        <Value
+          type="q2:string">false</Value>
+      </Property>
+      <Property>
+        <Name>UsedTableName</Name>
+        <Value
+          type="q3:string">[dbo].[DimDate]</Value>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q4:string">0</Value>
+      </Property>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Transform and Load FacSales\StgSales Source">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>
